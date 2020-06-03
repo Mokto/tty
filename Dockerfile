@@ -3,7 +3,7 @@ FROM ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
-RUN apt-get install -y wget zsh git snapd curl apt-transport-https ca-certificates gnupg
+RUN apt-get install -y wget zsh git snapd curl apt-transport-https ca-certificates gnupg python3-pip vim nano
 RUN systemctl enable snapd.service
 RUN wget https://github.com/tsl0922/ttyd/releases/download/1.6.0/ttyd_linux.x86_64 -O /usr/bin/ttyd && chmod +x /usr/bin/ttyd
 # nvm
@@ -12,6 +12,9 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 RUN apt-get update && apt-get install -y google-cloud-sdk kubectl
+# python - pip
+RUN ln -s "/usr/bin/python3" "/usr/bin/python"
+RUN ln -s "/usr/bin/pip3" "/usr/bin/pip"
 
 WORKDIR /root
 
